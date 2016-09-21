@@ -33,3 +33,4 @@ node make_ucg_pattern.js ../DangerousNodeJsFn.txt" ")|(" | clip
 ```bash
 $ ucg "<CTRL+V>" path/to/[file] [options]
 ```
+![alt tag](https://lh4.googleusercontent.com/EwHalFBeiRW_WfnflLDkSGT6M487dijtj5Y6SQRRkt9bDKM7oyCOJArqtkzeqIJpJUCrypLO=w1366-h638)
