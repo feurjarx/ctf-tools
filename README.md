@@ -18,9 +18,7 @@ require("child_process")
 
 ### Станет:
 
-(require[(]+[\']+child_process[\']+[)]+)|(require
-
-[(]+[\"]+child_process[\"]+[)]+)
+(require[(]+[\']+child_process[\']+[)]+)|(require[(]+[\"]+child_process[\"]+[)]+)
 
 На выходе появится файл с результатом.
 
