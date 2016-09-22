@@ -1,6 +1,7 @@
 {
-  "target": "",
+  "target": "C:\\public\\ctf-tools\\genpasswd",
   "signatures": [
-
+    "DangerousNodeJsFn.txt",
+    "DangerousPerlFn.txt"
   ]
 }
