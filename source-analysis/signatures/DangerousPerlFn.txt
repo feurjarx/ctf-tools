@@ -1,0 +1,25 @@
+system
+exec
+backticks
+open
+eval {
+eval{
+eval "
+eval '
+eval(
+`
+`ls
+`cd
+`cp
+`rm
+= `
+=`
+@cmd
+(@
+open(
+MSWin32
+KID_TO_WRITE
+$SIG{ALRM}
+@options
+|-
+	

@@ -1,0 +1,64 @@
+Process.Start(
+.Start
+Interaction.Shell(
+.Shell(
+.Arguments
+.StartInfo
+.FileName
+.RedirectStandardInput
+.RedirectStandardOutput
+.CreateNoWindow
+.WriteLine("
+.Flush(
+.StandardInput.Close
+.WaitForExit(
+.StandardOutput.ReadToEnd(
+.WindowStyle
+.WorkingDirectory
+"/C
+Func<
+.GetProcesses(
+Process.GetProcessesByName(
+Thread.Sleep(
+new Process()
+new Process(
+ProcessStartInfo
+.Kill()
+new Thread(
+.IsBackground
+.Run(
+new ConsoleListener
+ExecuteCommand
+Reflection.Emit(
+.Compiler
+CodeSnippetExpression
+CodeTypeDeclaration
+CodeNamespace
+CodeNamespaceImport
+CodeCompileUnit
+CompilerParameters
+CompilerResults
+CSharpCodeProvider
+CompileAsse
+CreateCompiler
+CompiledAssembly
+CompileExecutable(
+CodeDomProvider
+CreateProvider
+.Environment.CurrentDirectory
+CurrentDirectory
+GenerateExecutable
+OutputAssembly
+GenerateInMemory
+TreatWarningsAsErrors
+CompileAssemblyFromFile
+CompilerError
+PathToAssembly
+CompileAssemblyFromSource
+.Execute(
+new ScriptEngine
+ScriptEngine
+GenerateExecutable
+CsEval
+.Eval
+Eval
