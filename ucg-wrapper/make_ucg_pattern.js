@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var ucgWrapper = require('./ucg_wrapper').wrap;
-
+var fs = require('fs');
 var filename = process.argv[2];
 
 var data = ucgWrapper(filename, process.argv[3]);
