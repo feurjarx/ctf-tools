@@ -48,7 +48,16 @@ exports.wrap = function (filename, separator) {
         }
     });
 
-    data = data.replace(/[\r][\n]/g, separator);
+    if (/^win/.test(process.platform)) {
+
+        data = data.replace(/[\r][\n]/g, separator);
+
+    } else {
+
+        data = data.replace(/[\n]/g, separator);
+    }
+
+
 
     var
         separatorRear = separator[separator.length - 1],
