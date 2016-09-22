@@ -15,6 +15,8 @@ config.signatures.forEach(function (signature) {
 
     PCRE = ucgWrapper('./signatures/' + signature);
 
+    console.log(PCRE);
+
     if (/^win/.test(process.platform)) {
 
         ucg = spawn('cmd.exe', ['/c', 'ucg', PCRE, config.target]);
