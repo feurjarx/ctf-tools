@@ -32,6 +32,8 @@ var ucgMaker = function (PCRE) {
 if (config.custom_pcre) {
     var ucg_1 = ucgMaker(config.custom_pcre);
     promises.push(new Promise(function (resolve) {
+console.log(ucg_1)
+	
         ucg_1.stdout.on('data', function (data) {
             !config.options.non_displayed && console.log(data.toString());
             resolve({
@@ -39,7 +41,9 @@ if (config.custom_pcre) {
                 signature: 'CUSTOM by ' + config.custom_pcre
             });
         });
+
         ucg_1.stderr.on('data', function (err) {
+
             !config.options.non_displayed && console.log(err.toString());
             resolve({
                 data: '',
@@ -54,6 +58,7 @@ if (config.custom_pcre) {
         });
     }));
 }
+/*
 config.signatures.forEach(function (signature) {
     var ucg = ucgMaker(ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
     promises.push(new Promise(function (resolve) {
@@ -72,7 +77,7 @@ config.signatures.forEach(function (signature) {
             });
         });
     }));
-});
+});*/
 Promise.all(promises).then(function (results) {
     var content = '';
     var parts = results.map(function (it) { return it.data; });
