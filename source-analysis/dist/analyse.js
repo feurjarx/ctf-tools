@@ -76,8 +76,7 @@ Promise.all(promises).then(function (results) {
     });
     var outFilename = '../results/'
         + config.target.split(/([\\])|([\/])/g).slice(-1)
-        + '_'
-        + (config.options.one_result_file ? '' : (new Date().getTime().toString()))
+        + (config.options.one_result_file ? '' : ('_' + new Date().getTime().toString()))
         + '.txt';
     fs.writeFile(outFilename, content, function (err) {
         if (err) {
