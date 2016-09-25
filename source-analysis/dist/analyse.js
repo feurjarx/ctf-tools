@@ -6,12 +6,16 @@ var Promise = require('promise');
 var config = require('./../analyse.json');
 var PCRE, ucg;
 var promises = [];
-var ucgOptions = config.ucg_options_line || process.argv[2] || '';
+var ucgOptions = config.ucg_options;
+if (!ucgOptions && process.argv[2]) {
+    ucgOptions = process.argv.slice(2, -1);
+}
 config.signatures.forEach(function (signature) {
     PCRE = ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, '');
     if (/^win/.test(process.platform)) {
         if (ucgOptions) {
-            ucg = child_process_1.spawn('cmd.exe', ['/c', ucgOptions, PCRE, config.target]);
+            var cmdArgs = ['/c'].concat(ucgOptions, [PCRE, config.target]);
+            ucg = child_process_1.spawn('cmd.exe', cmdArgs);
         }
         else {
             ucg = child_process_1.spawn('cmd.exe', ['/c', PCRE, config.target]);
@@ -19,7 +23,8 @@ config.signatures.forEach(function (signature) {
     }
     else {
         if (ucgOptions) {
-            ucg = child_process_1.spawn('ucg', [ucgOptions, PCRE, config.target]);
+            var bashArgs = ['ucg'].concat(ucgOptions, [PCRE, config.target]);
+            ucg = child_process_1.spawn('ucg', bashArgs);
         }
         else {
             ucg = child_process_1.spawn('ucg', [PCRE, config.target]);

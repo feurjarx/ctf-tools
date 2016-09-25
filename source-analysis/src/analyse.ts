@@ -15,7 +15,11 @@ let PCRE, ucg;
 
 let promises: Array<IThenable> = [];
 
-let ucgOptions = config.ucg_options_line || process.argv[2] || '';
+let ucgOptions = config.ucg_options;
+
+if (!ucgOptions && process.argv[2]) {
+    ucgOptions = process.argv.slice(2, -1);
+}
 
 config.signatures.forEach((signature: string) => {
 
@@ -23,10 +27,10 @@ config.signatures.forEach((signature: string) => {
 
     if (/^win/.test(process.platform)) {
 
-        //ucg = spawn('cmd.exe', ['/c', 'echo', PCRE]);
         if (ucgOptions) {
 
-            ucg = spawn('cmd.exe', ['/c', ucgOptions, PCRE, config.target]);
+            let cmdArgs = ['/c'].concat(ucgOptions, [PCRE, config.target]);
+            ucg = spawn('cmd.exe', cmdArgs);
 
         } else {
 
@@ -37,7 +41,8 @@ config.signatures.forEach((signature: string) => {
 
         if (ucgOptions) {
 
-            ucg = spawn('ucg', [ucgOptions, PCRE, config.target]);
+            let bashArgs = ['ucg'].concat(ucgOptions, [PCRE, config.target]);
+            ucg = spawn('ucg', bashArgs);
 
         } else {
 

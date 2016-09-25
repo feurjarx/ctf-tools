@@ -10,7 +10,7 @@ interface Rule {
 interface AnalyseJSON {
     target: string;
     signatures: Array<string>;
-    ucg_options_line?: string;
+    ucg_options?: Array<string>;
 }
 
 interface PromiseResolveAnalyseData {
