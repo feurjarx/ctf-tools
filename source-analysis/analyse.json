@@ -1,8 +1,10 @@
 {
   "target": "/home/vagrant/skia",
   "signatures": [
-    "test.txt",
     "DangerousNodeJsFn.txt"
    ],
-  "ucg_options_line": "--word-regexp --column"
+  "ucg_options": [
+    "--word-regexp",
+    "--column"
+  ]
 }

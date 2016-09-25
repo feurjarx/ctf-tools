@@ -29,12 +29,12 @@ config.signatures.forEach((signature: string) => {
 
         if (ucgOptions) {
 
-            let cmdArgs = ['/c'].concat(ucgOptions, [PCRE, config.target]);
+            let cmdArgs = ['/c', 'ucg'].concat(ucgOptions, [PCRE, config.target]);
             ucg = spawn('cmd.exe', cmdArgs);
 
         } else {
 
-            ucg = spawn('cmd.exe', ['/c', PCRE, config.target]);
+            ucg = spawn('cmd.exe', ['/c', 'ucg', PCRE, config.target]);
         }
 
     } else {
