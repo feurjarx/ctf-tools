@@ -14,6 +14,7 @@ interface AnalyseJSON {
     ucg_options?: Array<string>;
     options?: {
         one_result_file: boolean;
+        non_displayed: boolean;
     }
 }
 

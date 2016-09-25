@@ -9,6 +9,7 @@
     "--column"
   ],
   "options": {
+    "one_result_file": true,
     "one_result_file": true
   }
 }

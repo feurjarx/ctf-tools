@@ -33,4 +33,5 @@ $ node dist/analyse.js
 ## Опции
 **ucg_options** - все доступные опции ucg (https://gvansickle.github.io/ucg/#command-line-options)
 **options** - опции данной утилиты:
-1. **one_result_file** - сохранять результат всегда в один файл (без подстановки timestamp в наименование файла) (default: false)
+1. **one_result_file** - сохранять результат всегда в один файл (без подстановки timestamp в наименование файла) (default: false).
+2. **non_displayed** - не отображать результаты в консоль.

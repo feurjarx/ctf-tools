@@ -56,7 +56,7 @@ if (config.custom_pcre) {
 
     promises.push(new Promise((resolve: Function) => {
         ucg.stdout.on('data', (data) => {
-            console.log(data.toString());
+            !config.options.non_displayed && console.log(data.toString());
 
             resolve({
                 data: data.toString(),
@@ -65,7 +65,7 @@ if (config.custom_pcre) {
         });
 
         ucg.stderr.on('data', function (err) {
-            console.log(err.toString());
+            !config.options.non_displayed && console.log(err.toString());
             resolve({
                 data: '',
                 signature: 'CUSTOM by ' + config.custom_pcre
@@ -80,7 +80,7 @@ config.signatures.forEach((signature: string) => {
 
     promises.push(new Promise((resolve: Function) => {
         ucg.stdout.on('data', (data) => {
-            console.log(data.toString());
+            !config.options.non_displayed && console.log(data.toString());
 
             resolve({
                 data: data.toString(),
@@ -89,7 +89,7 @@ config.signatures.forEach((signature: string) => {
         });
 
         ucg.stderr.on('data', function (err) {
-            console.log(err.toString());
+            !config.options.non_displayed && console.log(err.toString());
             resolve({
                 data: '',
                 signature: signature
@@ -117,7 +117,7 @@ Promise.all(promises).then((results: Array<PromiseResolveAnalyseData>) => {
 
     fs.writeFile(outFilename, content, function (err) {
         if (err) {
-            return console.log(err);
+            !config.options.non_displayed && console.log(err);
         }
     });
 });
