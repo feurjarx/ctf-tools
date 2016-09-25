@@ -50,34 +50,38 @@ let ucgMaker = (PCRE: string) => {
     return ucg;
 };
 
+let listeners = (resolve: Function, signature: string) => {
+    ucg.stdout.on('data', (data) => {
+        !config.options.non_displayed && console.log(data.toString());
+
+        resolve({
+            data: data.toString(),
+            signature: signature
+        });
+    });
+
+    ucg.stderr.on('data', (err: any) => {
+        !config.options.non_displayed && console.log(err.toString());
+        resolve({
+            data: '',
+            signature: signature
+        });
+    });
+
+    ucg.on('exit', (code: number) => {
+        code && resolve({
+            data: '',
+            signature: signature
+        });
+    });
+};
+
 if (config.custom_pcre) {
 
     let ucg = ucgMaker(config.custom_pcre);
 
     promises.push(new Promise((resolve: Function) => {
-        ucg.stdout.on('data', (data) => {
-            !config.options.non_displayed && console.log(data.toString());
-
-            resolve({
-                data: data.toString(),
-                signature: 'CUSTOM by ' + config.custom_pcre
-            });
-        });
-
-        ucg.stderr.on('data', (err: any) => {
-            !config.options.non_displayed && console.log(err.toString());
-            resolve({
-                data: '',
-                signature: 'CUSTOM by ' + config.custom_pcre
-            });
-        });
-
-        ucg.on('exit', (code: number) => {
-            resolve({
-                data: '',
-                signature: 'CUSTOM by ' + config.custom_pcre
-            });
-        });
+        listeners(resolve, 'CUSTOM by ' + config.custom_pcre);
     }));
 }
 
@@ -87,22 +91,7 @@ config.signatures.forEach((signature: string) => {
     let ucg = ucgMaker(wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
 
     promises.push(new Promise((resolve: Function) => {
-        ucg.stdout.on('data', (data) => {
-            !config.options.non_displayed && console.log(data.toString());
-
-            resolve({
-                data: data.toString(),
-                signature: signature
-            });
-        });
-
-        ucg.stderr.on('data', (err: any) => {
-            !config.options.non_displayed && console.log(err.toString());
-            resolve({
-                data: '',
-                signature: signature
-            });
-        });
+        listeners(resolve, signature);
     }));
 });
 

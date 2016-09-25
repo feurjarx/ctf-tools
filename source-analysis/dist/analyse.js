@@ -29,49 +29,39 @@ var ucgMaker = function (PCRE) {
     }
     return ucg;
 };
+var listeners = function (resolve, signature) {
+    ucg.stdout.on('data', function (data) {
+        !config.options.non_displayed && console.log(data.toString());
+        resolve({
+            data: data.toString(),
+            signature: signature
+        });
+    });
+    ucg.stderr.on('data', function (err) {
+        !config.options.non_displayed && console.log(err.toString());
+        resolve({
+            data: '',
+            signature: signature
+        });
+    });
+    ucg.on('exit', function (code) {
+        code && resolve({
+            data: '',
+            signature: signature
+        });
+    });
+};
 if (config.custom_pcre) {
-    var ucg_1 = ucgMaker(config.custom_pcre);
+    var ucg = ucgMaker(config.custom_pcre);
     promises.push(new Promise(function (resolve) {
-        ucg_1.stdout.on('data', function (data) {
-            !config.options.non_displayed && console.log(data.toString());
-            resolve({
-                data: data.toString(),
-                signature: 'CUSTOM by ' + config.custom_pcre
-            });
-        });
-        ucg_1.stderr.on('data', function (err) {
-            !config.options.non_displayed && console.log(err.toString());
-            resolve({
-                data: '',
-                signature: 'CUSTOM by ' + config.custom_pcre
-            });
-        });
-        ucg_1.on('exit', function (code) {
-            resolve({
-                data: '',
-                signature: 'CUSTOM by ' + config.custom_pcre
-            });
-        });
+        listeners(resolve, 'CUSTOM by ' + config.custom_pcre);
     }));
 }
 config.signatures = config.signatures || [];
 config.signatures.forEach(function (signature) {
     var ucg = ucgMaker(ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
     promises.push(new Promise(function (resolve) {
-        ucg.stdout.on('data', function (data) {
-            !config.options.non_displayed && console.log(data.toString());
-            resolve({
-                data: data.toString(),
-                signature: signature
-            });
-        });
-        ucg.stderr.on('data', function (err) {
-            !config.options.non_displayed && console.log(err.toString());
-            resolve({
-                data: '',
-                signature: signature
-            });
-        });
+        listeners(resolve, signature);
     }));
 });
 promises.length && Promise.all(promises).then(function (results) {
