@@ -46,6 +46,12 @@ if (config.custom_pcre) {
                 signature: 'CUSTOM by ' + config.custom_pcre
             });
         });
+        ucg_1.on('exit', function (code) {
+            resolve({
+                data: '',
+                signature: 'CUSTOM by ' + config.custom_pcre
+            });
+        });
     }));
 }
 config.signatures.forEach(function (signature) {

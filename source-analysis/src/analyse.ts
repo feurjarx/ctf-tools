@@ -64,8 +64,15 @@ if (config.custom_pcre) {
             });
         });
 
-        ucg.stderr.on('data', function (err) {
+        ucg.stderr.on('data', (err: any) => {
             !config.options.non_displayed && console.log(err.toString());
+            resolve({
+                data: '',
+                signature: 'CUSTOM by ' + config.custom_pcre
+            });
+        });
+
+        ucg.on('exit', (code: number) => {
             resolve({
                 data: '',
                 signature: 'CUSTOM by ' + config.custom_pcre
@@ -88,7 +95,7 @@ config.signatures.forEach((signature: string) => {
             });
         });
 
-        ucg.stderr.on('data', function (err) {
+        ucg.stderr.on('data', (err: any) => {
             !config.options.non_displayed && console.log(err.toString());
             resolve({
                 data: '',
