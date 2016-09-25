@@ -1,7 +1,7 @@
 {
-  "target": "C:\\public\\ctf-tools\\genpasswd",
+  "target": "/home/vagrant/skia",
   "signatures": [
-    "DangerousNodeJsFn.txt",
-    "DangerousPerlFn.txt"
+    "test.txt"
+   // "DangerousPerlFn.txt"
   ]
 }
