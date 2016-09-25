@@ -14,8 +14,7 @@ config.signatures.forEach(function (signature) {
     PCRE = ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, '');
     if (/^win/.test(process.platform)) {
         if (ucgOptions) {
-            var cmdArgs = ['/c', 'ucg'].concat(ucgOptions, [PCRE, config.target]);
-            ucg = child_process_1.spawn('cmd.exe', cmdArgs);
+            ucg = child_process_1.spawn('cmd.exe', [].concat(['/c', 'ucg'], ucgOptions, [PCRE, config.target]));
         }
         else {
             ucg = child_process_1.spawn('cmd.exe', ['/c', 'ucg', PCRE, config.target]);
@@ -23,8 +22,7 @@ config.signatures.forEach(function (signature) {
     }
     else {
         if (ucgOptions) {
-            var bashArgs = ['ucg'].concat(ucgOptions, [PCRE, config.target]);
-            ucg = child_process_1.spawn('ucg', bashArgs);
+            ucg = child_process_1.spawn('ucg', [].concat(ucgOptions, [PCRE, config.target]));
         }
         else {
             ucg = child_process_1.spawn('ucg', [PCRE, config.target]);

@@ -29,8 +29,7 @@ config.signatures.forEach((signature: string) => {
 
         if (ucgOptions) {
 
-            let cmdArgs = ['/c', 'ucg'].concat(ucgOptions, [PCRE, config.target]);
-            ucg = spawn('cmd.exe', cmdArgs);
+            ucg = spawn('cmd.exe', [].concat(['/c', 'ucg'], ucgOptions, [PCRE, config.target]));
 
         } else {
 
@@ -41,8 +40,7 @@ config.signatures.forEach((signature: string) => {
 
         if (ucgOptions) {
 
-            let bashArgs = ['ucg'].concat(ucgOptions, [PCRE, config.target]);
-            ucg = spawn('ucg', bashArgs);
+            ucg = spawn('ucg', [].concat(ucgOptions, [PCRE, config.target]));
 
         } else {
 
