@@ -50,7 +50,7 @@ let ucgMaker = (PCRE: string) => {
     return ucg;
 };
 
-let listeners = (resolve: Function, signature: string) => {
+let icgListeners = (ucg: any, resolve: Function, signature: string) => {
     ucg.stdout.on('data', (data) => {
         !config.options.non_displayed && console.log(data.toString());
 
@@ -79,9 +79,8 @@ let listeners = (resolve: Function, signature: string) => {
 if (config.custom_pcre) {
 
     let ucg = ucgMaker(config.custom_pcre);
-
     promises.push(new Promise((resolve: Function) => {
-        listeners(resolve, 'CUSTOM by ' + config.custom_pcre);
+        icgListeners(ucg, resolve, 'CUSTOM by ' + config.custom_pcre);
     }));
 }
 
@@ -89,9 +88,8 @@ config.signatures = config.signatures || [];
 config.signatures.forEach((signature: string) => {
 
     let ucg = ucgMaker(wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
-
     promises.push(new Promise((resolve: Function) => {
-        listeners(resolve, signature);
+        icgListeners(ucg, resolve, signature);
     }));
 });
 

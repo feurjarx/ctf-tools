@@ -29,7 +29,7 @@ var ucgMaker = function (PCRE) {
     }
     return ucg;
 };
-var listeners = function (resolve, signature) {
+var icgListeners = function (ucg, resolve, signature) {
     ucg.stdout.on('data', function (data) {
         !config.options.non_displayed && console.log(data.toString());
         resolve({
@@ -52,16 +52,16 @@ var listeners = function (resolve, signature) {
     });
 };
 if (config.custom_pcre) {
-    var ucg = ucgMaker(config.custom_pcre);
+    var ucg_1 = ucgMaker(config.custom_pcre);
     promises.push(new Promise(function (resolve) {
-        listeners(resolve, 'CUSTOM by ' + config.custom_pcre);
+        icgListeners(ucg_1, resolve, 'CUSTOM by ' + config.custom_pcre);
     }));
 }
 config.signatures = config.signatures || [];
 config.signatures.forEach(function (signature) {
     var ucg = ucgMaker(ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
     promises.push(new Promise(function (resolve) {
-        listeners(resolve, signature);
+        icgListeners(ucg, resolve, signature);
     }));
 });
 promises.length && Promise.all(promises).then(function (results) {
