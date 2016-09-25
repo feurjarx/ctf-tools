@@ -11,6 +11,9 @@ interface AnalyseJSON {
     target: string;
     signatures: Array<string>;
     ucg_options?: Array<string>;
+    options?: {
+        one_result_file: boolean;
+    }
 }
 
 interface PromiseResolveAnalyseData {

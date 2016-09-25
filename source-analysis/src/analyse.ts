@@ -82,7 +82,8 @@ Promise.all(promises).then((results: Array<PromiseResolveAnalyseData>) => {
     let outFilename = '../results/'
         + config.target.split(/([\\])|([\/])/g).slice(-1)
         + '_'
-        + (new Date().getTime().toString()) + '.txt'
+        + (config.options.one_result_file ? '' : (new Date().getTime().toString()))
+        + '.txt'
     ;
 
     fs.writeFile(outFilename, content, function (err) {

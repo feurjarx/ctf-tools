@@ -6,5 +6,8 @@
   "ucg_options": [
     "--word-regexp",
     "--column"
-  ]
+  ],
+  "options": {
+    "one_result_file": true
+  }
 }
