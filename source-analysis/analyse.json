@@ -3,5 +3,6 @@
   "signatures": [
     "DangerousNodeJsFn.txt",
     "DangerousPerlFn.txt"
-  ]
+  ],
+  "ucg_options_line": "--word-regexp"
 }

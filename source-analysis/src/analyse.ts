@@ -10,21 +10,25 @@ import { spawn } from 'child_process';
 import * as Promise from 'promise';
 import IThenable = Promise.IThenable;
 
-const config: AnalyseJSON = require('./../config/analyse.json');
+const config: AnalyseJSON = require('./../analyse.json');
 let PCRE, ucg;
 
 let promises: Array<IThenable> = [];
+
+let ucgOptions = config.ucg_options_line || process.argv[2] || '';
+
 config.signatures.forEach((signature: string) => {
 
-    PCRE = wrap('./../signatures/' + signature);
+    PCRE = wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, '');
 
     if (/^win/.test(process.platform)) {
-
-        ucg = spawn('cmd.exe', ['/c', 'echo', PCRE]);
+        
+        //ucg = spawn('cmd.exe', ['/c', 'echo', PCRE]);
+        ucg = spawn('cmd.exe', ['/c', ucgOptions, PCRE, config.target]);
 
     } else {
 
-        ucg = spawn('ucg', [PCRE, config.target]);
+        ucg = spawn('ucg', [ucgOptions, PCRE, config.target]);
     }
 
     promises.push(new Promise((resolve: Function) => {
