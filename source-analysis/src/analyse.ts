@@ -50,8 +50,8 @@ let ucgMaker = (PCRE: string) => {
     return ucg;
 };
 
-let icgListeners = (ucg: any, resolve: Function, signature: string) => {
-    ucg.stdout.on('data', (data) => {
+let ucgListeners = function(resolve: Function, signature: string) {
+    this.stdout.on('data', (data) => {
         !config.options.non_displayed && console.log(data.toString());
 
         resolve({
@@ -60,7 +60,7 @@ let icgListeners = (ucg: any, resolve: Function, signature: string) => {
         });
     });
 
-    ucg.stderr.on('data', (err: any) => {
+    this.stderr.on('data', (err: any) => {
         !config.options.non_displayed && console.log(err.toString());
         resolve({
             data: '',
@@ -68,7 +68,7 @@ let icgListeners = (ucg: any, resolve: Function, signature: string) => {
         });
     });
 
-    ucg.on('exit', (code: number) => {
+    this.on('exit', (code: number) => {
         code && resolve({
             data: '',
             signature: signature
@@ -80,7 +80,7 @@ if (config.custom_pcre) {
 
     let ucg = ucgMaker(config.custom_pcre);
     promises.push(new Promise((resolve: Function) => {
-        icgListeners(ucg, resolve, 'CUSTOM by ' + config.custom_pcre);
+        ucgListeners.call(ucg, resolve, 'CUSTOM by ' + config.custom_pcre);
     }));
 }
 
@@ -89,7 +89,7 @@ config.signatures.forEach((signature: string) => {
 
     let ucg = ucgMaker(wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
     promises.push(new Promise((resolve: Function) => {
-        icgListeners(ucg, resolve, signature);
+        ucgListeners.call(ucg, resolve, signature);
     }));
 });
 

@@ -29,22 +29,22 @@ var ucgMaker = function (PCRE) {
     }
     return ucg;
 };
-var icgListeners = function (ucg, resolve, signature) {
-    ucg.stdout.on('data', function (data) {
+var ucgListeners = function (resolve, signature) {
+    this.stdout.on('data', function (data) {
         !config.options.non_displayed && console.log(data.toString());
         resolve({
             data: data.toString(),
             signature: signature
         });
     });
-    ucg.stderr.on('data', function (err) {
+    this.stderr.on('data', function (err) {
         !config.options.non_displayed && console.log(err.toString());
         resolve({
             data: '',
             signature: signature
         });
     });
-    ucg.on('exit', function (code) {
+    this.on('exit', function (code) {
         code && resolve({
             data: '',
             signature: signature
@@ -54,14 +54,14 @@ var icgListeners = function (ucg, resolve, signature) {
 if (config.custom_pcre) {
     var ucg_1 = ucgMaker(config.custom_pcre);
     promises.push(new Promise(function (resolve) {
-        icgListeners(ucg_1, resolve, 'CUSTOM by ' + config.custom_pcre);
+        ucgListeners.call(ucg_1, resolve, 'CUSTOM by ' + config.custom_pcre);
     }));
 }
 config.signatures = config.signatures || [];
 config.signatures.forEach(function (signature) {
     var ucg = ucgMaker(ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
     promises.push(new Promise(function (resolve) {
-        icgListeners(ucg, resolve, signature);
+        ucgListeners.call(ucg, resolve, signature);
     }));
 });
 promises.length && Promise.all(promises).then(function (results) {
