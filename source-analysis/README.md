@@ -8,15 +8,22 @@ $ npm i
 ```
 
 ## Использование
-1. В каталог **signatures** поместить файлы, содержащие ключевые строки. 
+1. В каталог **signatures** поместить файлы, содержащие ключевые строки, и(-или) указать необходимый паттерн значением ключа **custom_pcre**.  
 2. Открыть конфиг **config/analyse.json**, чтобы указать целевой каталог или файл (**target**), а также список используемых имен сигнатурных файлов.
 ```json
 {
-  "target": "C:\\public\\ctf-tools\\genpasswd",
+  "target": "/home/vagrant/skia",
   "signatures": [
-    "DangerousNodeJsFn.txt",
-    "DangerousPerlFn.txt"
-  ]
+    "DangerousNodeJsFn.txt"
+   ],
+  "custom_pcre": "test",
+  "ucg_options": [
+    "--word-regexp",
+    "--column"
+  ],
+  "options": {
+    "one_result_file": true
+  }
 }
 ```
 3. Убедившись, что **ucg** успешно установлен и работает, запустить обертку командой:

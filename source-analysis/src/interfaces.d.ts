@@ -9,6 +9,7 @@ interface Rule {
 
 interface AnalyseJSON {
     target: string;
+    custom_pcre?: string;
     signatures: Array<string>;
     ucg_options?: Array<string>;
     options?: {

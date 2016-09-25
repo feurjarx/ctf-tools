@@ -3,6 +3,7 @@
   "signatures": [
     "DangerousNodeJsFn.txt"
    ],
+  "custom_pcre": "(!!!test)",
   "ucg_options": [
     "--word-regexp",
     "--column"

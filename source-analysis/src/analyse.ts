@@ -11,7 +11,6 @@ import * as Promise from 'promise';
 import IThenable = Promise.IThenable;
 
 const config: AnalyseJSON = require('./../analyse.json');
-let PCRE, ucg;
 
 let promises: Array<IThenable> = [];
 
@@ -21,9 +20,9 @@ if (!ucgOptions && process.argv[2]) {
     ucgOptions = process.argv.slice(2, -1);
 }
 
-config.signatures.forEach((signature: string) => {
+let ucgMaker = (PCRE: string) => {
 
-    PCRE = wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, '');
+    let ucg: any;
 
     if (/^win/.test(process.platform)) {
 
@@ -47,6 +46,37 @@ config.signatures.forEach((signature: string) => {
             ucg = spawn('ucg', [PCRE, config.target]);
         }
     }
+
+    return ucg;
+};
+
+if (config.custom_pcre) {
+
+    let ucg = ucgMaker(config.custom_pcre);
+
+    promises.push(new Promise((resolve: Function) => {
+        ucg.stdout.on('data', (data) => {
+            console.log(data.toString());
+
+            resolve({
+                data: data.toString(),
+                signature: 'CUSTOM by ' + config.custom_pcre
+            });
+        });
+
+        ucg.stderr.on('data', function (err) {
+            console.log(err.toString());
+            resolve({
+                data: '',
+                signature: 'CUSTOM by ' + config.custom_pcre
+            });
+        });
+    }));
+}
+
+config.signatures.forEach((signature: string) => {
+
+    let ucg = ucgMaker(wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
 
     promises.push(new Promise((resolve: Function) => {
         ucg.stdout.on('data', (data) => {
