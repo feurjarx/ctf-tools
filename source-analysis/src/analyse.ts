@@ -111,8 +111,7 @@ Promise.all(promises).then((results: Array<PromiseResolveAnalyseData>) => {
 
     let outFilename = '../results/'
         + config.target.split(/([\\])|([\/])/g).slice(-1)
-        + '_'
-        + (config.options.one_result_file ? '' : (new Date().getTime().toString()))
+        + (config.options.one_result_file ? '' : ('_' + new Date().getTime().toString()))
         + '.txt'
     ;
 
