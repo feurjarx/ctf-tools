@@ -22,13 +22,27 @@ config.signatures.forEach((signature: string) => {
     PCRE = wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, '');
 
     if (/^win/.test(process.platform)) {
-        
+
         //ucg = spawn('cmd.exe', ['/c', 'echo', PCRE]);
-        ucg = spawn('cmd.exe', ['/c', ucgOptions, PCRE, config.target]);
+        if (ucgOptions) {
+
+            ucg = spawn('cmd.exe', ['/c', ucgOptions, PCRE, config.target]);
+
+        } else {
+
+            ucg = spawn('cmd.exe', ['/c', PCRE, config.target]);
+        }
 
     } else {
 
-        ucg = spawn('ucg', [ucgOptions, PCRE, config.target]);
+        if (ucgOptions) {
+
+            ucg = spawn('ucg', [ucgOptions, PCRE, config.target]);
+
+        } else {
+
+            ucg = spawn('ucg', [PCRE, config.target]);
+        }
     }
 
     promises.push(new Promise((resolve: Function) => {
