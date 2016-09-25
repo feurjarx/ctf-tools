@@ -81,6 +81,7 @@ if (config.custom_pcre) {
     }));
 }
 
+config.signatures = config.signatures || [];
 config.signatures.forEach((signature: string) => {
 
     let ucg = ucgMaker(wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
@@ -105,7 +106,7 @@ config.signatures.forEach((signature: string) => {
     }));
 });
 
-Promise.all(promises).then((results: Array<PromiseResolveAnalyseData>) => {
+promises.length && Promise.all(promises).then((results: Array<PromiseResolveAnalyseData>) => {
 
     let content = '';
 

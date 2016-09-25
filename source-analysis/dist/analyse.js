@@ -54,6 +54,7 @@ if (config.custom_pcre) {
         });
     }));
 }
+config.signatures = config.signatures || [];
 config.signatures.forEach(function (signature) {
     var ucg = ucgMaker(ucg_wrapper_1.wrap('./../signatures/' + signature).replace(/\|\(\s*\)/g, ''));
     promises.push(new Promise(function (resolve) {
@@ -73,7 +74,7 @@ config.signatures.forEach(function (signature) {
         });
     }));
 });
-Promise.all(promises).then(function (results) {
+promises.length && Promise.all(promises).then(function (results) {
     var content = '';
     var parts = results.map(function (it) { return it.data; });
     var signatures = results.map(function (it) { return it.signature; });
