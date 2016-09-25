@@ -33,6 +33,7 @@ if (config.custom_pcre) {
     var ucg_1 = ucgMaker(config.custom_pcre);
     promises.push(new Promise(function (resolve) {
         ucg_1.stdout.on('data', function (data) {
+console.log('ass')
             !config.options.non_displayed && console.log(data.toString());
             resolve({
                 data: data.toString(),
@@ -47,7 +48,8 @@ if (config.custom_pcre) {
             });
         });
         ucg_1.on('exit', function (code) {
-            resolve({
+	    console.log(code)
+            code && resolve({
                 data: '',
                 signature: 'CUSTOM by ' + config.custom_pcre
             });
