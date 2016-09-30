@@ -1,12 +1,19 @@
 {
   "target": "/home/vagrant/lectern",
-  "custom_pcre": "Roman",
+  "signatures": [
+    "DangerousNodeJsFn.txt",
+    "DangerousPerlFn.txt",
+    "DangerousCSharpFn.txt"
+  ],
+  "custom_pcre": "password",
   "ucg_options": [
     "--word-regexp",
-    "--column"
+    "--column",
+    "--colour",
+    "--type=js"
   ],
   "options": {
     "one_result_file": true,
-    "non_displayed": true
+    "non_displayed": false
   }
 }
