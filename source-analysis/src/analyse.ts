@@ -9,8 +9,12 @@ import * as fs from 'fs';
 import { spawn } from 'child_process';
 import * as Promise from 'promise';
 import IThenable = Promise.IThenable;
+import {readFileSync} from "fs";
 
-const config: AnalyseJSON = require('./../analyse.json');
+let jsonminify: any = require('jsonminify');
+
+//const config: AnalyseJSON = require('./../analyse.json');
+let config: AnalyseJSON = JSON.parse(jsonminify(readFileSync('./../analyse.json').toString()));
 
 let promises: Array<IThenable> = [];
 

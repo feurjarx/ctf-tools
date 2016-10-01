@@ -3,7 +3,9 @@ var ucg_wrapper_1 = require('./ucg_wrapper');
 var fs = require('fs');
 var child_process_1 = require('child_process');
 var Promise = require('promise');
-var config = require('./../analyse.json');
+var fs_1 = require("fs");
+var jsonminify = require('jsonminify');
+var config = JSON.parse(jsonminify(fs_1.readFileSync('./../analyse.json').toString()));
 var promises = [];
 var ucgOptions = config.ucg_options;
 if (!ucgOptions && process.argv[2]) {
