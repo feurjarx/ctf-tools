@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsonminify": "^0.4.1",
     "promise": "^7.1.1"
   }
 }
