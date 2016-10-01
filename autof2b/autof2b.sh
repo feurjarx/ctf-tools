@@ -6,18 +6,18 @@ cp $path "$path.old"
 
 cat >$path <<EOL 
 
-[DEFAULT]
-# "ignoreip" can be an IP address, a CIDR mask or a DNS host
-ignoreip = 127.0.0.1/8
+[DEFAULT] 
+ignoreip = 127.0.0.1/8 
 bantime = 600 
-maxretry = 3
-# "backend" specifies the backend used to get files modification. Available options are "gamin", "polling" and "auto". 
-# yoh: For some reason Debian shipped python-gamin didn't work as expected
-#      This issue left ToDo, so polling is default backend for now
-backend = auto
-#
-# Destination email address used solely for the interpolations in jail.{conf,local} configuration files.
-destemail = feurjarx@gmail.com
+maxretry = 3 
+banaction = iptables-multiport 
+
+[ssh]
+enabled = true 
+port = 2222
+#filter = sshd
+logpath = /var/log/auth.log
 EOL
-service fail2ban start
+
+service fail2ban restart 
 exit 0

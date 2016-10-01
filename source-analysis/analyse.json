@@ -1,16 +1,20 @@
 {
-  "target": "/home/vagrant/lectern",
+  // crypto_inc PY +
+  // history PY +
+  // loogles C++
+  // support
+  "target": "/home/vagrant/sibirctf2016/history",
   "signatures": [
     "DangerousNodeJsFn.txt",
-    "DangerousPerlFn.txt",
-    "DangerousCSharpFn.txt"
+    // "DangerousPerlFn.txt",
+    // "DangerousCSharpFn.txt",
+    "PHP.txt",
+    "PY.txt"
   ],
   "custom_pcre": "password",
   "ucg_options": [
     "--word-regexp",
-    "--column",
-    "--colour",
-    "--type=js"
+    "--colour"
   ],
   "options": {
     "one_result_file": true,
